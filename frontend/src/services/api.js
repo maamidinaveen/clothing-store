@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://faint-jasmine-naveenmaamidi-4166d8e2.koyeb.app/api",
   withCredentials: true, // so JWT cookie is sent & received
 });
 
