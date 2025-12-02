@@ -23,7 +23,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       // later add your deployed frontend:
-      // "https://your-frontend-domain.vercel.app",
+      "https://clothing-store-xqb9.vercel.app",
     ],
     credentials: true,
   })
