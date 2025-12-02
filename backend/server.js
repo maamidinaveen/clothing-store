@@ -1,3 +1,5 @@
+// backend/server.js
+
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -20,8 +22,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      // add your deployed frontend URL here later, e.g.:
-      // "https://your-frontend.vercel.app",
+      // later add your deployed frontend:
+      // "https://your-frontend-domain.vercel.app",
     ],
     credentials: true,
   })
@@ -32,21 +34,37 @@ app.use(cookieParser());
 
 const PORT = process.env.PORT || 8000;
 
+// simple test route (no auth)
+app.get("/ping", (req, res) => {
+  res.json({ message: "hello world" });
+});
+
+// optional protected test route
+app.get("/protected-ping", authMiddleware, (req, res) => {
+  res.json({ message: "protected pong", user: req.user });
+});
+
+// main routes
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.post("/logout", logoutUser);
 app.use("/api/orders", orderRoutes);
 
-// 🔥 Start server only after DB connects
+// 🔥 start server only after DB connects, and CRASH if it fails
 const startServer = async () => {
   try {
+    console.log("⏳ Connecting to MongoDB...");
     await connectDB();
+    console.log("✅ DB connected, starting server...");
+
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
   } catch (err) {
-    console.error("❌ Failed to connect to DB or start server:", err.message);
+    console.error("❌ Failed to start server:", err);
+    // rethrow so Node exits with non-zero and Koyeb shows the real error
+    throw err;
   }
 };
 

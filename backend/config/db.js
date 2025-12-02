@@ -9,6 +9,7 @@ const connectDB = async () => {
     console.log("✅ Using DB:", conn.connection.name);
   } catch (error) {
     console.error("❌ MongoDB connection error:", error.message);
+    // let server.js see this and crash
     throw error;
   }
 };
