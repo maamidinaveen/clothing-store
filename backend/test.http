@@ -1,0 +1,48 @@
+GET http://localhost:5000/ping
+
+####
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json 
+
+{
+    "name": "naveen", 
+    "email": "naveen75520@gmail.com",
+    "password": "naveen",
+    "role":"customer"
+}
+
+####
+POST http://localhost:5000/api/auth/login 
+Content-Type: application/json
+
+{
+    "email": "naveen@gmail.com", 
+    "password": "naveen"
+}
+
+####
+POST http://localhost:5000/logout
+
+####
+GET http://localhost:5000/api/products?category=Men&size=M&minPrice=400&maxPrice=1500&search=jeans&page=1&limit=10
+
+####
+GET http://localhost:5000/api/products 
+
+###
+GET http://localhost:5000/api/cart
+
+
+
+
+####
+DELETE  http://localhost:5000/api/cart/delete
+Content-Type: application/json
+
+{
+      "productId": "692d3ae7fe024e05818f6ef3",
+      "size": "L"
+}
+
+####
+POST http://localhost:5000/api/orders 
