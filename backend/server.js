@@ -29,6 +29,8 @@ app.use(
   })
 );
 
+app.set("trust proxy", 1); // so secure cookies work behind Koyeb's proxy
+
 app.use(express.json());
 app.use(cookieParser());
 
